@@ -25,11 +25,14 @@ app.use(cors())
 app.use(bodyParser.json());
 
 app.get('/', (rep, res) => { res.send('This is working') });
-app.post('/register', register.handleRegister);
-app.post('/signin', signin.handleSignin);
-// app.post('/signin', (req, res) => {
-//     res.json('Signed in');
-// });
+app.post('/register', (req, res) => {
+    res.json('Registered');
+});
+// app.post('/register', register.handleRegister);
+app.post('/signin', (req, res) => {
+    res.json('Signed in');
+});
+// app.post('/signin', signin.handleSignin);
 
 app.post('/imageurl', image.handleApiCall)
 
