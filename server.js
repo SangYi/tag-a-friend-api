@@ -26,7 +26,8 @@ app.use(bodyParser.json());
 
 app.get('/', (rep, res) => { res.send('This is working') });
 app.post('/register', (req, res) => {
-    res.json('Registered');
+    console.log('Registered')
+    res.json(req.body);
 });
 // app.post('/register', register.handleRegister);
 app.post('/login', (req, res) => {
