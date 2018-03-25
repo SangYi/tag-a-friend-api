@@ -6,7 +6,7 @@ const knex = require('knex')
 
 const PORT = 3005;
 const register = require('./controllers/register');
-const signin = require('./controllers/signin');
+const login = require('./controllers/login');
 const image = require('./controllers/image');
 
 const db = knex({
@@ -29,10 +29,11 @@ app.post('/register', (req, res) => {
     res.json('Registered');
 });
 // app.post('/register', register.handleRegister);
-app.post('/signin', (req, res) => {
-    res.json('Signed in');
+app.post('/login', (req, res) => {
+    console.log('Logged in');
+    res.json(req.body);
 });
-// app.post('/signin', signin.handleSignin);
+// app.post('/login', login.handlelogin);
 
 app.post('/imageurl', image.handleApiCall)
 
@@ -42,7 +43,7 @@ app.listen(PORT, ()=> {
 
 /*
 / --> res = this is working
-/signin --> POST = success/fail
+/login --> POST = success/fail
 /register --> POST = user
 /profile/:userId --> GET = user
 /image --> PUT --> user
