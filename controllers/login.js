@@ -17,8 +17,8 @@ const handleLogin = (db, bcrypt) => (req, res) => {
       if (isValid) {
         return db.select('*').from('users')
           .where(loginChoice, '=', usernameOrEmail)
-          .then(user => {
-            res.json(user[0])
+          .then( ([user]) => {
+            res.json(user)
           })
           .catch(err => res.status(400).json('unable to get user'))
       } else {

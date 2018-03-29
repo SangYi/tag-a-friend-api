@@ -35,42 +35,12 @@ app.post('/login', (req, res) => {
     console.log('Logged in');
     res.json(req.body);
 });
-// app.post('/login', login.handlelogin);
+// app.post('/login', login.handlelogin(db, bcrypt));
 
-app.post('/imageurl', image.handleApiCall)
+app.post('/imageurl', image.handleApiCall);
 
-app.post('/testregister', (req, res) => {
-    const {email, username, name, password} = req.body;
-    const hash = bcrypt.hashSync(password)
-    //temp
-    db.transaction(trx => {
-        trx('login').insert({
-            hash,
-            email,
-            username
-        }, 'email')
-        .then( ([loginEmail]) => {
-            console.log(loginEmail);
-            return trx('account')
-                .insert({
-                    email: loginEmail,
-                    // name,
-                    username,
-                    created_on: new Date()
-                }, '*')
-                .then( ([user]) => {
-                    console.log(user)
-                    res.json(user)
-                })
-        })
-        .then(trx.commit)
-        .catch(trx.rollback);
-    })
-    .catch(err => res.status(400).json({
-        message: 'unable to register',
-        err
-    }))
-})
+app.post('/testregister', register.handleRegister);
+
 //---------
 app.get('/api', (req, res) => {
     res.json({
@@ -97,7 +67,7 @@ app.post('/api/login', (req, res) => {
         username: 'sang',
         email: 'sang@gmail.com'
     }
-    jwt.sign({user}, 'secretkey', {expiresIn: '30s'}, (err, token) => {
+    jwt.sign({user}, 'secretkey', /*{expiresIn: '30s'},*/ (err, token) => {
         res.json({
             token
         });
