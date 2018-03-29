@@ -39,7 +39,7 @@ app.post('/login', (req, res) => {
 
 app.post('/imageurl', image.handleApiCall);
 
-app.post('/testregister', register.handleRegister);
+app.post('/testregister', register.handleRegister(db, bcrypt));
 
 //---------
 app.get('/api', (req, res) => {
