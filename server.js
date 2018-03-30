@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
@@ -9,13 +10,13 @@ const PORT = process.env.PORT || 3005;
 const register = require('./controllers/register');
 const login = require('./controllers/login');
 const image = require('./controllers/image');
-
+console.log(process.env.DB_USER);
 const db = knex({
     client: 'pg',
     connection: {
-        host : '127.0.0.1',
-        user : 'postgres',
-        password : 'yellow45',
+        host : process.env.DB_HOST,
+        user : process.env.DB_USER,
+        password : process.env.DB_PASS,
         database : 'test'
     }
 });
