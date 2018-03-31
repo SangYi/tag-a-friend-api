@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3005;
 const register = require('./controllers/register');
 const login = require('./controllers/login');
 const image = require('./controllers/image');
-console.log(process.env.DB_USER);
+
 const db = knex({
     client: 'pg',
     connection: {
@@ -27,19 +27,11 @@ app.use(cors())
 app.use(bodyParser.json());
 
 app.get('/', (rep, res) => { res.send('This is working') });
-app.post('/register', (req, res) => {
-    console.log('Registered')
-    res.json(req.body);
-});
-// app.post('/register', register.handleRegister);
-app.post('/login', (req, res) => {
-    console.log('Logged in');
-    res.json(req.body);
-});
-// app.post('/login', login.handlelogin(db, bcrypt));
+app.post('/register', register.handleRegister(db, bcrypt));
+app.post('/login', login.handleLogin(db, bcrypt));
 
 app.post('/imageurl', image.handleApiCall);
-
+app.put('/faces', image.handleEnterName);
 app.post('/testregister', register.handleRegister(db, bcrypt));
 
 //---------
