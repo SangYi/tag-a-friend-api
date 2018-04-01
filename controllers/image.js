@@ -116,13 +116,16 @@ const handleImageSubmit = (db) => (req, res) => {
 }
 
 const handleEnterName = (db) => (req, res) => {
-  const {photoId} = req.params;
+  const { faceId } = req.params;
   const { name } = req.body;
   db('faces')
-    .where('photo_id', '=', photo_id, )
+    .where('face_id', '=', faceId, )
     .update('name', name, 'name')
-    .then( name => {
-      res.json(name);
+    .then( ([name]) => {
+      res.json({
+        faceId,
+        name
+      });
     })
     .catch(err => res.status(400).json('unable to change name'))
 }

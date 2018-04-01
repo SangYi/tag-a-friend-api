@@ -33,7 +33,7 @@ app.post('/login', login.handleLogin(db, bcrypt));
 // app.post('/imageurl', image.handleApiCall);
 app.post('/imageurl', image.handleImageSubmit(db));
 app.get('/photos/:userId', image.getPhotos(db));
-app.put('/photos/:photoId', image.handleEnterName(db));
+app.put('/photos/:faceId', image.handleEnterName(db));
 app.post('/testregister', register.handleRegister(db, bcrypt));
 
 //---------
